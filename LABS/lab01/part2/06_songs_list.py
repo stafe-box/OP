@@ -39,7 +39,8 @@ x = 0
 for i in violator_songs_list:
     time.append (violator_songs_list[x][1])#а тут можно сделать как в 04
     x +=1
-print(find_song('Halo'))
+time_sum = time[find_song('Halo')] + time[find_song('Enjoy the Silence')] + time[find_song('Clean')]
+print('Три песни звучат', round(time_sum, 2), 'минут')
 
 
 
@@ -60,3 +61,6 @@ violator_songs_dict = {
 #   А другие три песни звучат ХХХ минут
 
 # TODO здесь ваш код
+
+time_sum2 =  violator_songs_dict['Sweetest Perfection'] + violator_songs_dict['Policy of Truth'] + violator_songs_dict['Blue Dress']
+print('А другие три песни звучат', int(time_sum2), 'минут')
