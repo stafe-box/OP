@@ -1,0 +1,26 @@
+{
+    "name": "Lab 2 part 3",
+    "endpoint": "cal/cs61a/fa20/lab23",
+    "src": [
+        "part3.py"
+    ],
+    "tests": {
+        "part*.py": "doctest",
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "list-indexing",
+        "skip_add",
+        "summation",
+        "paths",
+        "max_subseq"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ]
+}

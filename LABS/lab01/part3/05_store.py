@@ -56,3 +56,14 @@ store = {
 #     вывод на консоль количества и стоимости товара на складе
 
 # TODO здесь ваш код
+
+for i in goods:
+    count = 0
+    price = 0
+    a = store[goods[i]]
+    # print(a, '\n\n')
+    for j in a:
+        count = count + j['quantity']
+        price = price + j['price'] * j['quantity']
+        #print(j, '\n\n')
+    print('%s - %s шт, стоимость %s руб'%(i, count, price))
