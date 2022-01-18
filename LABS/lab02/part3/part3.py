@@ -16,7 +16,10 @@ def skip_add(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if n <= 0:
+        return 0
+    else:
+        return n + skip_add(n-2)
 
 def summation(n, term):
 
@@ -38,6 +41,9 @@ def summation(n, term):
     assert n >= 1
     "*** YOUR CODE HERE ***"
 
+    if n <= 1:
+        return term(n)
+    return term(n) + summation(n-1, term)
 
 def paths(m, n):
     """Возвращает число путей из нижнего левого угла сетки M x N с координатами (0, 0)
