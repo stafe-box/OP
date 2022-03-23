@@ -71,8 +71,17 @@ def paths(m, n):
     1
     """
     "*** YOUR CODE HERE ***"
+    count = [[0 for x in range(n)] for y in range(m)]
+    for i in range(m):
+        count[i][0] = 1
 
-
+    for j in range(n):
+        count[0][j] = 1
+    
+    for i in range(1, m):
+        for j in range(1, n):             
+            count[i][j] = count[i-1][j] + count[i][j-1]
+    return count[m-1][n-1]
 
 def max_subseq(n, t):
     """
@@ -120,6 +129,12 @@ def max_subseq(n, t):
     5
     """
     "*** YOUR CODE HERE ***"
+    if t == 0 or n == 0:
+        return 0
+    else:
+        use_last = max_subseq(n // 10, t - 1) * 10 + n % 10
+        not_use_last = max_subseq(n // 10, t)
+        return max(use_last, not_use_last)
 
 
 def add_chars(w1, w2):
