@@ -1,4 +1,5 @@
-LAB_SOURCE_FILE=__file__
+from operator import sub, mul
+LAB_SOURCE_FILE = __file__
 
 
 def num_eights(x):
@@ -25,12 +26,12 @@ def num_eights(x):
     """
 
     "*** YOUR CODE HERE ***"
-
-    if x == 0:
+    if x == 8:
+        return 1
+    elif x != 8 and x < 10:
         return 0
-    if x % 10 == 8:
-        return num_eights(x // 10) + 1
-    return num_eights(x // 10)
+    return num_eights(x//10) + num_eights(x % 10)
+
 
 def pingpong(n):
     """Возвращает n-ый элемент пинг-понг последовательности.
@@ -75,15 +76,17 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
-    def flag(x):
-        if x == 1:
+    def helper(index, ppn, dir):
+        if n == 1:
             return 1
-        if num_eights(x) or x % 8 == 0:
-            return -flag(x-1)
-        return flag(x-1)
-    if n == 1:
-        return 1
-    return pingpong(n-1) + flag(n-1)
+        elif index != n:
+            if num_eights(index) > 0 or index % 8 == 0:
+                return helper(index+1, ppn-dir, -dir)
+            else:
+                return helper(index+1, ppn+dir, dir)
+        else:
+            return ppn
+    return helper(1, 1, 1)
 
 
 def missing_digits(n):
@@ -115,9 +118,11 @@ def missing_digits(n):
     "*** YOUR CODE HERE ***"
     if n < 10:
         return 0
-    if n < 100:
-        return n % 10 - n // 10 - 1 if n % 10 != n // 10 else n % 10 - n // 10
-    return missing_digits(n // 10) + missing_digits(n % 100)
+    elif n % 10 - n // 10 % 10 - 1 == -1:
+        return missing_digits(n // 10)
+    else:
+        return n % 10 - n // 10 % 10 - 1 + missing_digits(n//10)
+
 
 def next_largest_coin(coin):
     """Возвращает следующую монету.
@@ -135,6 +140,19 @@ def next_largest_coin(coin):
         return 10
     elif coin == 10:
         return 25
+
+
+def max_num(x):
+    if x <= 1:
+        return 0
+    else:
+        i = x
+        while not next_largest_coin(i):
+            i = i - 1
+        if next_largest_coin(i) > x:
+            return i
+        if next_largest_coin(i) <= x:
+            return next_largest_coin(i)
 
 
 def count_coins(total):
@@ -163,19 +181,21 @@ def count_coins(total):
     True
     """
     "*** YOUR CODE HERE ***"
-    def helper(lowest, n):
-        if (lowest == None):
-            return 0
-        elif (lowest == n):
+    def using_num(m, n):
+        if m == 1 or m == 0:
             return 1
-        elif (lowest > n):
+        elif m < 0:
             return 0
-        with_coin = helper(lowest, n - lowest)
-        without_coin = helper(next_largest_coin(lowest), n)
-        return with_coin + without_coin
-    return helper(1, total)
+        elif n <= 0:
+            return 0
+        elif n == 1:
+            return 1
+        else:
+            with_max = using_num(m - max_num(n), max_num(n))
+            without_max = using_num(m, max_num(n-1))
+            return without_max + with_max
+    return using_num(total, max_num(total))
 
-from operator import sub, mul
 
 def make_anonymous_factorial():
     """Возвращает выражение, которое вычисляет факториал.
@@ -187,4 +207,4 @@ def make_anonymous_factorial():
     >>> check(LAB_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])
     True
     """
-    return lambda n: (lambda f, v: f(f, v))(lambda f, v: 1 if v == 1 else mul(v, f(f, sub(v, 1))), n)
+    return 'YOUR_EXPRESSION_HERE'

@@ -2,6 +2,7 @@ LAB_SOURCE_FILE = __file__
 
 this_file = __file__
 
+
 def skip_add(n):
     """ Принимает число n и возвращает сумму n + n-2 + n-4 + n-6 + ... + 0.
 
@@ -16,13 +17,13 @@ def skip_add(n):
     True
     """
     "*** YOUR CODE HERE ***"
-    if n <= 0:
-        return 0
+    if n == 0 or n == 1:
+        return n
     else:
-        return n + skip_add(n-2)
+        return skip_add(n-2) + n
+
 
 def summation(n, term):
-
     """Возвращает сумму первых n элементов в поледовательности, заданной term.
     Реализовать с помощью рекурсии!
 
@@ -40,10 +41,11 @@ def summation(n, term):
     """
     assert n >= 1
     "*** YOUR CODE HERE ***"
-
-    if n <= 1:
+    if n == 1:
         return term(n)
-    return term(n) + summation(n-1, term)
+    else:
+        return term(n) + summation(n-1, term)
+
 
 def paths(m, n):
     """Возвращает число путей из нижнего левого угла сетки M x N с координатами (0, 0)
@@ -71,17 +73,15 @@ def paths(m, n):
     1
     """
     "*** YOUR CODE HERE ***"
-    count = [[0 for x in range(n)] for y in range(m)]
-    for i in range(m):
-        count[i][0] = 1
+    if m == 1 and n == 1:
+        return 1
+    elif m == 1:
+        return paths(m, n-1)
+    elif n == 1:
+        return paths(m-1, n)
+    else:
+        return paths(m-1, n) + paths(m, n-1)
 
-    for j in range(n):
-        count[0][j] = 1
-    
-    for i in range(1, m):
-        for j in range(1, n):             
-            count[i][j] = count[i-1][j] + count[i][j-1]
-    return count[m-1][n-1]
 
 def max_subseq(n, t):
     """
@@ -132,9 +132,9 @@ def max_subseq(n, t):
     if t == 0 or n == 0:
         return 0
     else:
-        use_last = max_subseq(n // 10, t - 1) * 10 + n % 10
-        not_use_last = max_subseq(n // 10, t)
-        return max(use_last, not_use_last)
+        rost = max_subseq(n // 10, t - 1) * 10 + n % 10
+        rost2 = max_subseq(n // 10, t)
+        return max(rost, rost2)
 
 
 def add_chars(w1, w2):

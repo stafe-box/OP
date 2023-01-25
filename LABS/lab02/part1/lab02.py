@@ -18,6 +18,7 @@ def lambda_curry2(func):
     return lambda x: lambda y: func(x, y)
 
 
+
 def count_cond(condition):
     """
     Возвращает функцию одного аргумента n, которая считает, сколько из чисел
@@ -46,14 +47,16 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
-    def count_num(x):
+    def count_stuff(n):
         i, count = 1, 0
-        while i <= x:
-            if condition(x, i):
+        while i <= n:
+            if condition(n, i):
                 count += 1
             i += 1
         return count
-    return count_num
+
+    return count_stuff
+
 
 
 def compose1(f, g):
@@ -89,9 +92,7 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
-    def identity(x):
-        return compose1(f, g)(x) == compose1(g, f)(x)
-    return identity
+    return lambda x: compose1(f, g)(x) == compose1(g, f)(x)
 
 
 def cycle(f1, f2, f3):
@@ -122,17 +123,17 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
-    def cycle_n_times(n):
-        def start_with_x(x):
-            count = 1
-            while count <= n:
-                if count % 3 == 1:
-                    x = f1(x)
-                elif count % 3 == 2:
-                    x = f2(x)
-                else:
-                    x = f3(x)
-                count += 1
-            return x
-        return start_with_x
-    return cycle_n_times
+
+    def cycle_n(n):
+        def cycle_on_m(m):
+            func_lst = [f1, f2, f3]
+            i, result = 0, m
+            while i < n:
+                ind = i % 3
+                result = func_lst[ind](result)
+                i += 1
+            return result
+
+        return cycle_on_m
+
+    return cycle_n

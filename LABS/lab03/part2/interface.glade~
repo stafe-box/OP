@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkAdjustment" id="cost_adg">
+    <property name="upper">100</property>
+    <property name="step-increment">0.01</property>
+    <property name="page-increment">1</property>
+  </object>
+  <object class="GtkAdjustment" id="iron_adg">
+    <property name="upper">100000</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="time_adg">
+    <property name="upper">100000</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkWindow" id="main_window">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Програмовое</property>
+    <property name="window-position">center-always</property>
+    <property name="default-width">500</property>
+    <property name="default-height">250</property>
+    <property name="icon-name">accessories-calculator-symbolic</property>
+    <signal name="destroy" handler="on_main_window_destroy" swapped="no"/>
+    <child>
+      <object class="GtkPaned">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="wide-handle">True</property>
+        <child>
+          <object class="GtkPaned">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkComboBoxText" id="chooser">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="active">0</property>
+                <property name="active-id">0</property>
+                <items>
+                  <item id="0" translatable="yes">Утюг</item>
+                  <item id="1" translatable="yes">Телевизор</item>
+                  <item id="2" translatable="yes">Стиральная Машина</item>
+                </items>
+                <signal name="changed" handler="chooser_changed_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="resize">False</property>
+                <property name="shrink">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButtonBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="homogeneous">True</property>
+                <property name="layout-style">spread</property>
+                <child>
+                  <object class="GtkButton" id="docx_btn">
+                    <property name="label" translatable="yes">Сохранить в .docx</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <signal name="clicked" handler="docx_btn_clicked_cb" swapped="no"/>
+                    <accelerator key="d" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="xlsx_btn">
+                    <property name="label" translatable="yes">Сохранить в .xlsx</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <accelerator key="s" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="settings_btn">
+                    <property name="label" translatable="yes">Настройки</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <signal name="clicked" handler="settings_btn_clicked_cb" swapped="no"/>
+                    <accelerator key="p" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                    <property name="secondary">True</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">True</property>
+                <property name="shrink">False</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="resize">False</property>
+            <property name="shrink">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkListBox">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkListBoxRow">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="activatable">False</property>
+                <property name="selectable">False</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Время использования (ч)</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkListBoxRow">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <child>
+                  <object class="GtkSpinButton" id="time_box">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="placeholder-text" translatable="yes">Время использования</property>
+                    <property name="input-purpose">digits</property>
+                    <property name="adjustment">time_adg</property>
+                    <property name="climb-rate">1</property>
+                    <property name="numeric">True</property>
+                    <property name="update-policy">if-valid</property>
+                    <signal name="changed" handler="time_box_changed_cb" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkListBoxRow">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="activatable">False</property>
+                <property name="selectable">False</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Цена за кВт*ч</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkListBoxRow">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <child>
+                  <object class="GtkSpinButton" id="cost_box">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="input-purpose">digits</property>
+                    <property name="adjustment">cost_adg</property>
+                    <property name="climb-rate">0.01</property>
+                    <property name="digits">2</property>
+                    <property name="numeric">True</property>
+                    <property name="update-policy">if-valid</property>
+                    <signal name="changed" handler="cost_box_changed_cb" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkListBoxRow">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="activatable">False</property>
+                <property name="selectable">False</property>
+                <child>
+                  <object class="GtkLabel" id="result_filed">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="wrap">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="resize">True</property>
+            <property name="shrink">False</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAdjustment" id="tv_adg">
+    <property name="upper">100000</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="washer_adg">
+    <property name="upper">100000</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkDialog" id="pwr_dialog">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Введите мощность устройств</property>
+    <property name="window-position">center-on-parent</property>
+    <property name="destroy-with-parent">True</property>
+    <property name="icon-name">battery-level-10-symbolic</property>
+    <property name="type-hint">menu</property>
+    <property name="deletable">False</property>
+    <signal name="destroy" handler="pwr_dialog_destroy_cb" swapped="no"/>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
+            <child>
+              <object class="GtkButton" id="cancel_btn">
+                <property name="label" translatable="yes">Отмена</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <signal name="clicked" handler="cancel_btn_clicked_cb" swapped="no"/>
+                <accelerator key="z" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="save_pwr_btn">
+                <property name="label" translatable="yes">Сохранить</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <signal name="clicked" handler="save_pwr_btn_clicked_cb" swapped="no"/>
+                <accelerator key="Return" signal="clicked"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <!-- n-columns=2 n-rows=3 -->
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="row-homogeneous">True</property>
+            <property name="column-homogeneous">True</property>
+            <property name="baseline-row">2</property>
+            <child>
+              <object class="GtkSpinButton" id="iron_pwr">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="adjustment">iron_adg</property>
+                <property name="climb-rate">1</property>
+                <property name="numeric">True</property>
+                <property name="update-policy">if-valid</property>
+                <signal name="changed" handler="iron_pwr_changed_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="tv_pwr">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="adjustment">tv_adg</property>
+                <property name="climb-rate">1</property>
+                <property name="numeric">True</property>
+                <property name="update-policy">if-valid</property>
+                <signal name="changed" handler="tv_pwr_changed_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="washer_pwr">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="adjustment">washer_adg</property>
+                <property name="climb-rate">1</property>
+                <property name="numeric">True</property>
+                <property name="update-policy">if-valid</property>
+                <signal name="changed" handler="washer_pwr_changed_cb" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left-attach">1</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Утюг</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Телевизор</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Стиральная машина</property>
+              </object>
+              <packing>
+                <property name="left-attach">0</property>
+                <property name="top-attach">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
