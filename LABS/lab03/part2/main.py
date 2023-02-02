@@ -2,7 +2,7 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 import json
-
+import locale
 import utils
 
 class Handler:
@@ -45,8 +45,8 @@ class Handler:
     def cost_box_changed_cb(self, object):
         buffer = object.get_text()
         try:
-            self.costF = float(buffer)
-            #print(self.costF)
+            self.costF = locale.atof(buffer)
+            print(self.costF)
         except:
             pass
         resF = builder.get_object('result_filed')
@@ -70,7 +70,7 @@ class Handler:
     def iron_pwr_changed_cb(self, object):
         buffer = object.get_text()
         try:
-            self.iron_pwr = float(buffer)
+            self.iron_pwr = locale.atof(buffer)
             #print(self.iron_pwr)
         except:
             pass
@@ -78,7 +78,7 @@ class Handler:
     def tv_pwr_changed_cb(self, object):
         buffer = object.get_text()
         try:
-            self.tv_pwr = float(buffer)
+            self.tv_pwr = locale.atof(buffer)
             #print(self.tv_pwr)
         except:
             pass
@@ -86,7 +86,7 @@ class Handler:
     def washer_pwr_changed_cb(self, object):
         buffer = object.get_text()
         try:
-            self.washer_pwr = float(buffer)
+            self.washer_pwr = locale.atof(buffer)
             #print(self.washer_pwr)
         except:
             pass
@@ -122,7 +122,8 @@ class Handler:
 
 
 
-        
+     
+locale.atof('123,456')   
 gladefile = "interface.glade"
 builder = Gtk.Builder()
 builder.add_from_file(gladefile)
@@ -131,3 +132,4 @@ builder.connect_signals(Handler())
 window = builder.get_object("main_window")
 window.show_all()
 Gtk.main()
+

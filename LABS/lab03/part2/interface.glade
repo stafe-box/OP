@@ -179,12 +179,14 @@
                   <object class="GtkSpinButton" id="cost_box">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="secondary-icon-activatable">False</property>
+                    <property name="secondary-icon-sensitive">False</property>
+                    <property name="placeholder-text" translatable="yes">Цена</property>
                     <property name="input-purpose">digits</property>
                     <property name="adjustment">cost_adg</property>
                     <property name="climb-rate">0.01</property>
                     <property name="digits">2</property>
                     <property name="numeric">True</property>
-                    <property name="update-policy">if-valid</property>
                     <signal name="changed" handler="cost_box_changed_cb" swapped="no"/>
                   </object>
                 </child>

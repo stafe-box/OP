@@ -193,7 +193,7 @@ my_sweet_home = House()
 for citisen in citizens:
     citisen.go_to_the_house(house=my_sweet_home)
  
-for day in range(1, 30):
+for day in range(1, 366):
     print('_____________________ день {} _____________________'.format(day))
     for citisen in citizens:
         citisen.act()
