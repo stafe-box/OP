@@ -43,3 +43,48 @@ class xlsx_saver:
             ws['A'+str(i)] = name
             ws['B'+str(i)] = result
             wb.save('./result.xlsx')
+
+class Tecnic:
+    name = 'Техника'
+    def __init__(self, pwr):
+        self.pwr = pwr
+
+    def calculate(self, time, cost):
+        return round(self.pwr*time*cost / 1000.00, 2)
+
+    def calculate_to_text(self, time, cost):
+        return (f"{self.name} потребляет {self.calculate(time, cost)} рыбов")
+
+class iron(Tecnic):
+    name = 'Утюг'
+    def _init_(self, pwr):
+        super().__init__(pwr)
+
+    def calculate(self, time, cost):
+        return super().calculate(time, cost)
+
+    def calculate_to_text(self, time, cost):
+        return super().calculate_to_text(time, cost)
+
+
+class TV(Tecnic):
+    name = 'Телевизор'
+    def _init_(self, pwr):
+        super().__init__(pwr)
+
+    def calculate(self, time, cost):
+        return super().calculate(time, cost)
+
+    def calculate_to_text(self, time, cost):
+        return super().calculate_to_text(time, cost)
+
+class washer(Tecnic):
+    name = 'Утюг'
+    def _init_(self, pwr):
+        super().__init__(pwr)
+
+    def calculate(self, time, cost):
+        return super().calculate(time, cost)
+
+    def calculate_to_text(self, time, cost):
+        return super().calculate_to_text(time, cost)

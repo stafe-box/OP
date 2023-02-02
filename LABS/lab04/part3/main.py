@@ -8,21 +8,24 @@ import utils
 class Handler:
     timeF = 0
     costF = 0.00
-    t_index = 0
+    t_index = '0'
     pwrs = {'0': 0, '1': 0, '2': 0}
-    iron_pwr = 0
-    tv_pwr = 0
-    washer_pwr = 0
-
+    iron = utils.iron(0)
+    TV = utils.TV(0)
+    washer = utils.washer(0)
+    things = {'0': iron, '1': TV, '2': washer}
 
     def __init__(self):
         try:
             with open('settings.json') as f:
-               self.pwrs = json.load(f)
+                self.pwrs = json.load(f)
+                self.iron.pwr = self.pwrs['0']
+                self.TV.pwr = self.pwrs['1']
+                self.washer.pwr = self.pwrs['2']
         except:
-            self.pwrs['0'] = self.iron_pwr
-            self.pwrs['1'] = self.tv_pwr
-            self.pwrs['2'] = self.washer_pwr
+            self.iron.pwr = self.pwrs['0']
+            self.TV.pwr = self.pwrs['1']
+            self.washer.pwr = self.self.pwrs['2']
             with open('settings.json', 'w') as settings:
                 settings.write(json.dumps(self.pwrs))
                 settings.close()
@@ -39,8 +42,7 @@ class Handler:
         except:
             pass
         resF = builder.get_object('result_filed')
-        resF.set_text(utils.calculator.calc_to_text(
-            self.pwrs, self.t_index, self.timeF, self.costF))
+        resF.set_text(self.things[self.t_index].calculate_to_text(self.timeF, self.costF))
 
     def cost_box_changed_cb(self, object):
         buffer = object.get_text()
@@ -50,8 +52,7 @@ class Handler:
         except:
             pass
         resF = builder.get_object('result_filed')
-        resF.set_text(utils.calculator.calc_to_text(
-            self.pwrs, self.t_index, self.timeF, self.costF))
+        resF.set_text(self.things[self.t_index].calculate_to_text(self.timeF, self.costF))
 
     def chooser_changed_cb(self, object):
         tree_iter = object.get_active_iter()
@@ -61,7 +62,7 @@ class Handler:
             self.t_index = str(model[tree_iter][1])
         #print(self.name, ':', self.t_index)
         resF = builder.get_object('result_filed')
-        resF.set_text(utils.calculator.calc_to_text(self.pwrs, self.t_index, self.timeF, self.costF))
+        resF.set_text(self.things[self.t_index].calculate_to_text(self.timeF, self.costF))
     
     def settings_btn_clicked_cb(self, object):
             self.dialog = builder.get_object("pwr_dialog")
@@ -70,7 +71,7 @@ class Handler:
     def iron_pwr_changed_cb(self, object):
         buffer = object.get_text()
         try:
-            self.iron_pwr = locale.atof(buffer)
+            self.pwrs['0'] = locale.atof(buffer)
             #print(self.iron_pwr)
         except:
             pass
@@ -78,7 +79,7 @@ class Handler:
     def tv_pwr_changed_cb(self, object):
         buffer = object.get_text()
         try:
-            self.tv_pwr = locale.atof(buffer)
+            self.pwrs['1'] = locale.atof(buffer)
             #print(self.tv_pwr)
         except:
             pass
@@ -86,28 +87,26 @@ class Handler:
     def washer_pwr_changed_cb(self, object):
         buffer = object.get_text()
         try:
-            self.washer_pwr = locale.atof(buffer)
+            self.pwrs['2'] = locale.atof(buffer)
             #print(self.washer_pwr)
         except:
             pass
 
     def docx_btn_clicked_cb(self, object):
         #print(self.timeF, self.costF, self.pwrs)
-        utils.docx_saver.save_to_docx(utils.calculator.calc_to_text(
-            self.pwrs, self.t_index, self.timeF, self.costF))
+        utils.docx_saver.save_to_docx(self.things[self.t_index].calculate_to_text(self.timeF, self.costF))
 
     def xlsx_btn_clicked_cb(self, object):
-        utils.xlsx_saver.save_to_xlsx(self.t_index, utils.calculator.calculate(
-            self.pwrs, self.t_index, self.timeF, self.costF))
+        utils.xlsx_saver.save_to_xlsx(self.t_index, self.things[self.t_index].calculate(self.timeF, self.costF))
     
     def cancel_btn_clicked_cb(self, object):
         self.dialog.hide()
         return True
     
     def save_pwr_btn_clicked_cb(self, object):
-        self.pwrs['0'] = self.iron_pwr
-        self.pwrs['1'] = self.tv_pwr
-        self.pwrs['2'] = self.washer_pwr
+        # self.iron.pwr = self.pwrs['0']
+        # self.TV.pwr = self.pwrs['1']
+        # self.washer.pwr = self.self.pwrs['2']
         with open('settings.json', 'w') as settings:
             settings.write(json.dumps(self.pwrs))
             settings.close()
